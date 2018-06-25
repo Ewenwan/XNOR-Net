@@ -16,6 +16,46 @@ This is the Torch 7.0 implementation of XNOR-Net: ImageNet Classification Using 
 }
 ```
 
+# 对于每一次CNN网络，我们使用一个三元素 《I,W,#》来表示，I 表示卷积输入，W表示滤波器，#表示卷积算子
+
+## BWN
+
+该网络主要是对W 进行二值化，主要是一些数学公式的推导，公式推导如下:
+      
+      对W进行二值化，使用 B 和缩放比例 a 来近似表达W
+![](https://img-blog.csdn.net/20160715113533581)
+      
+      全精度权重W 和 加权二进制权重 aB 的误差函数，求解缩放比例a和二值权重B，使得误差函数值最小
+![](https://img-blog.csdn.net/20160715113542440)
+
+      误差函数展开
+![](https://img-blog.csdn.net/20160715113549674)
+      
+      二值权重B的求解，误差最小，得到 W转置*B最大
+![](https://img-blog.csdn.net/20160715113600645)
+
+      缩放比例a的求解，由全精度权重W求解得到
+![](https://img-blog.csdn.net/20160715113609159)
+
+## BWN网络的训练
+
+
+![](https://img-blog.csdn.net/20160715113831914)
+
+
+## 异或网络 XNOR-Networks  对 I(神经元激活输出，下一层的输入) 及 W(权重参数) 都二值化
+
+     最开始的输入X，权重W, 使用b*H代替X, 使用a*B代替W , a,b为缩放比例，H,B为 二值矩阵。
+![](https://img-blog.csdn.net/20160715114052958)
+      
+     网络中间隐含层的量化，二值化的矩阵相乘，在乘上一个矩阵和一个缩放因子。
+![](https://img-blog.csdn.net/20160715114402250)
+
+      主框架:
+![](https://img-blog.csdn.net/20160715114256287)
+
+
+
 ### Requirements
 This software is implemented on top of the implementation of [ImageNet-multiGPU](https://github.com/soumith/imagenet-multiGPU.torch) and has all the same requirements.
 
