@@ -1,3 +1,7 @@
+# Binary-Weight-Networks 只是对CNN网络的滤波器进行二值化近似，使其占内存降低32倍多，
+
+# XNOR-Networks 则对CNN网络的滤波器及其输入都进行二值化近似，
+
 ## XNOR-Net: ImageNet Classification Using Binary Convolutional Neural Networks.
 
 This is the Torch 7.0 implementation of XNOR-Net: ImageNet Classification Using Binary Convolutional Neural Networks.
